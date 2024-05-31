@@ -6,16 +6,45 @@
   "engines": {
     "vscode": "^1.89.0"
   },
+  "publisher": "pengchaolevi",
   "categories": [
     "Other"
   ],
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "tarocodepeng.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+      {
+        "command": "tarocodepeng.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "extension.createFolderFromTemplate",
+        "title": "create taro tempalte"
+      }
+    ],
+    "languages": [
+      {
+        "id": "plaintext",
+        "aliases": [
+          "Plain Text",
+          "plaintext"
+        ],
+        "extensions": [
+          ".txt"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.createFolderFromTemplate",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint .",
