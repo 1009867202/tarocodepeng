@@ -2,7 +2,7 @@
   "name": "tarocodepeng",
   "displayName": "taroCodePeng",
   "description": "nosay",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -19,8 +19,12 @@
         "title": "Hello World"
       },
       {
-        "command": "extension.createFolderFromTemplate",
+        "command": "extension.createFolderFromTemplatetaro",
         "title": "create taro tempalte"
+      },
+      {
+        "command": "extension.createFolderFromTemplateumi",
+        "title": "create umi tempalte"
       }
     ],
     "languages": [
@@ -39,7 +43,12 @@
     "menus": {
       "explorer/context": [
         {
-          "command": "extension.createFolderFromTemplate",
+          "command": "extension.createFolderFromTemplatetaro",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.createFolderFromTemplateumi",
           "when": "explorerResourceIsFolder",
           "group": "navigation"
         }
