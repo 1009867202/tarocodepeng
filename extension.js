@@ -49,11 +49,67 @@ function addPageEntryToConfig(configContent, newPageEntry) {
   }
 }
 
+// 获取第一个工作区文件夹的路径
+function getWorkspaceFolder() {
+  if (
+    vscode.workspace.workspaceFolders &&
+    vscode.workspace.workspaceFolders.length > 0
+  ) {
+    return vscode.workspace.workspaceFolders[0].uri.fsPath;
+  } else {
+    vscode.window.showErrorMessage("No workspace folder is opened.");
+    return null;
+  }
+}
+
+// code Sinppets item
+function getSinppetsItem(linePrefix, key, sinppet, md) {
+  let codeSinppets = "code";
+  return () => {
+    if (!linePrefix.endsWith(`${codeSinppets}${key}`)) {
+      console.log(`Line does not end with "${key}"`);
+      return undefined;
+    }
+    // Create completion item
+    const completion = new vscode.CompletionItem(
+      key,
+      vscode.CompletionItemKind.Snippet
+    );
+    completion.insertText = new vscode.SnippetString(sinppet);
+    completion.documentation = new vscode.MarkdownString(md);
+    return completion;
+  };
+}
+
+// 递归遍历文件夹并读取指定文件
+function traverseFolder(folderPath) {
+  const results = [];
+
+  function traverse(currentPath) {
+    const files = fs.readdirSync(currentPath);
+    files.forEach((file) => {
+      const fullPath = path.join(currentPath, file);
+      if (fs.lstatSync(fullPath).isDirectory()) {
+        traverse(fullPath); // 递归遍历子文件夹
+      } else {
+        if (file === "index.md" || file === "key.txt" || file === "index.txt") {
+          const content = fs.readFileSync(fullPath, "utf8");
+          results.push({ file: fullPath, content });
+        }
+      }
+    });
+  }
+
+  traverse(folderPath);
+  return results;
+}
+
+let rootPath = getWorkspaceFolder();
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-  // code Sinpper
+  // code sinppets
   const provider = vscode.languages.registerCompletionItemProvider(
     { scheme: "file", language: "*" },
     {
@@ -62,10 +118,17 @@ function activate(context) {
         const linePrefix = document
           .lineAt(position)
           .text.substr(0, position.character);
+        // 添加日志输出
+        console.log(`Line prefix: "${linePrefix}"`); // 添加日志输出
+        // 读取文件
+        const srcPath = path.join(workspaceFolder, "md");
+        // 调用递归遍历函数并读取文件
+        const results = traverseFolder(srcPath);
+
         if (!linePrefix.endsWith("peng")) {
+          console.log('Line does not end with "peng"');
           return undefined;
         }
-
         // Create completion item
         const completion = new vscode.CompletionItem(
           "peng",
@@ -86,8 +149,8 @@ function activate(context) {
   const disposable = vscode.commands.registerCommand(
     "extension.createFolderFromTemplatetaro",
     (uri) => {
-      const srcPath = path.join(vscode.workspace.rootPath, "src/pages");
-      const source = path.join(vscode.workspace.rootPath, "src");
+      const srcPath = path.join(rootPath, "src/pages");
+      const source = path.join(rootPath, "src");
       const appConfigTemplatePath = path.join(
         context.extensionPath,
         "template",
@@ -186,7 +249,7 @@ function activate(context) {
   const disposableUmi = vscode.commands.registerCommand(
     "extension.createFolderFromTemplateumi",
     (uri) => {
-      const srcPath = path.join(vscode.workspace.rootPath, "src/pages");
+      const srcPath = path.join(rootPath, "src/pages");
       if (!uri.fsPath.startsWith(srcPath)) {
         vscode.window.showErrorMessage(
           "You must be inside the 'src/pages' folder to use this command."
@@ -221,13 +284,55 @@ function activate(context) {
         });
     }
   );
+  // 注册一个命令，该命令会在文件夹上右键时触发
+  const disposablevscode = vscode.commands.registerCommand(
+    "extension.createFolderFromTemplatevscode",
+    (uri) => {
+      const srcPath = path.join(rootPath, "md");
+      if (!uri.fsPath.startsWith(srcPath)) {
+        vscode.window.showErrorMessage(
+          "You must be inside the 'md' folder to use this command."
+        );
+        return;
+      }
+      vscode.window
+        .showInputBox({ prompt: "Enter the name of the new folder" })
+        .then((folderName) => {
+          if (!folderName) {
+            vscode.window.showErrorMessage("Folder name cannot be empty");
+            return;
+          }
+
+          const newFolderPath = path.join(uri.fsPath, folderName);
+          if (fs.existsSync(newFolderPath)) {
+            vscode.window.showErrorMessage(
+              `Folder already exists: ${newFolderPath}`
+            );
+            return;
+          }
+
+          const templatePath = path.join(
+            context.extensionPath,
+            "template",
+            "vscode"
+          );
+          copyFolderSync(templatePath, newFolderPath);
+          vscode.window.showInformationMessage(
+            `Folder created from umi template : ${newFolderPath}`
+          );
+        });
+    }
+  );
   context.subscriptions.push(provider);
   context.subscriptions.push(disposable);
   context.subscriptions.push(disposableUmi);
+  context.subscriptions.push(disposablevscode);
 }
 
-function deactivate() {}
-
+function deactivate() {
+  // Clean up resources, such as event listeners, subscriptions, etc.
+  console.log('Your extension "your-extension-name" is now deactivated!');
+}
 module.exports = {
   activate,
   deactivate,

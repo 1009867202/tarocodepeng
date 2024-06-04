@@ -25,6 +25,10 @@
       {
         "command": "extension.createFolderFromTemplateumi",
         "title": "create umi tempalte"
+      },
+      {
+        "command": "extension.createFolderFromTemplatevscode",
+        "title": "create vsocde tempalte"
       }
     ],
     "languages": [
@@ -35,6 +39,10 @@
           "plaintext"
         ],
         "extensions": [
+          ".js",
+          ".ts",
+          ".jsx",
+          ".tsx",
           ".txt"
         ],
         "configuration": "./language-configuration.json"
@@ -49,6 +57,11 @@
         },
         {
           "command": "extension.createFolderFromTemplateumi",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.createFolderFromTemplatevscode",
           "when": "explorerResourceIsFolder",
           "group": "navigation"
         }
