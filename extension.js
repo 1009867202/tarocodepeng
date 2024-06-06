@@ -114,6 +114,8 @@ function activate(context) {
     { scheme: "file", language: "*" },
     {
       provideCompletionItems(document, position, token, context) {
+        // src path
+
         // Get the current line
         const linePrefix = document
           .lineAt(position)
@@ -123,12 +125,12 @@ function activate(context) {
         // 读取文件
         const srcPath = path.join(workspaceFolder, "md");
         // 调用递归遍历函数并读取文件
-        const results = traverseFolder(srcPath);
+        // const results = traverseFolder(srcPath);
 
-        if (!linePrefix.endsWith("peng")) {
-          console.log('Line does not end with "peng"');
-          return undefined;
-        }
+        // if (!linePrefix.endsWith("peng")) {
+        //   console.log('Line does not end with "peng"');
+        //   return undefined;
+        // }
         // Create completion item
         const completion = new vscode.CompletionItem(
           "peng",
@@ -159,12 +161,12 @@ function activate(context) {
       );
       const appConfigPath = path.join(source, "app.config.ts");
 
-      if (!uri.fsPath.startsWith(srcPath)) {
-        vscode.window.showErrorMessage(
-          "You must be inside the 'src/pages' folder to use this command."
-        );
-        return;
-      }
+      // if (!uri.fsPath.startsWith(srcPath)) {
+      //   vscode.window.showErrorMessage(
+      //     "You must be inside the 'src/pages' folder to use this command."
+      //   );
+      //   return;
+      // }
       // 检查 app.config.ts 文件是否存在，如果不存在则从模板复制
       if (!fs.existsSync(appConfigPath)) {
         if (!fs.existsSync(source)) {
@@ -250,12 +252,12 @@ function activate(context) {
     "extension.createFolderFromTemplateumi",
     (uri) => {
       const srcPath = path.join(rootPath, "src/pages");
-      if (!uri.fsPath.startsWith(srcPath)) {
-        vscode.window.showErrorMessage(
-          "You must be inside the 'src/pages' folder to use this command."
-        );
-        return;
-      }
+      // if (!uri.fsPath.startsWith(srcPath)) {
+      //   vscode.window.showErrorMessage(
+      //     "You must be inside the 'src/pages' folder to use this command."
+      //   );
+      //   return;
+      // }
       vscode.window
         .showInputBox({ prompt: "Enter the name of the new folder" })
         .then((folderName) => {
@@ -289,12 +291,12 @@ function activate(context) {
     "extension.createFolderFromTemplatevscode",
     (uri) => {
       const srcPath = path.join(rootPath, "md");
-      if (!uri.fsPath.startsWith(srcPath)) {
-        vscode.window.showErrorMessage(
-          "You must be inside the 'md' folder to use this command."
-        );
-        return;
-      }
+      // if (!uri.fsPath.startsWith(srcPath)) {
+      //   vscode.window.showErrorMessage(
+      //     "You must be inside the 'md' folder to use this command."
+      //   );
+      //   return;
+      // }
       vscode.window
         .showInputBox({ prompt: "Enter the name of the new folder" })
         .then((folderName) => {
