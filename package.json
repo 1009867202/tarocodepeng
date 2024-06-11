@@ -2,7 +2,7 @@
   "name": "tarocodepeng",
   "displayName": "taroCodePeng",
   "description": "nosay",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -10,7 +10,6 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
     "commands": [
@@ -29,6 +28,10 @@
       {
         "command": "extension.createFolderFromTemplatevscode",
         "title": "create vsocde tempalte"
+      },
+      {
+        "command": "extension.replaceJsx",
+        "title": "Replace JSX ClassNames"
       }
     ],
     "languages": [
@@ -43,9 +46,19 @@
           ".ts",
           ".jsx",
           ".tsx",
-          ".txt"
+          ".vue"
         ],
         "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "javascript",
+        "aliases": [
+          "JavaScript",
+          "javascript"
+        ],
+        "extensions": [
+          ".js"
+        ]
       }
     ],
     "menus": {
@@ -63,6 +76,13 @@
         {
           "command": "extension.createFolderFromTemplatevscode",
           "when": "explorerResourceIsFolder",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "extension.replaceJsx",
+          "when": "editorTextFocus",
           "group": "navigation"
         }
       ]

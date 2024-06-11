@@ -104,11 +104,67 @@ function traverseFolder(folderPath) {
   return results;
 }
 
+function transformJsx(text) {
+  // 简单的示例替换逻辑，可以根据需要扩展
+  return text.replace(/className="([^"]+)"/g, (match, p1) => {
+    const classNames = p1
+      .split(" ")
+      .map((className) => `less.${className}`)
+      .join(" ");
+    return `className={${classNames}}`;
+  });
+}
+
 let rootPath = getWorkspaceFolder();
+
+let arr = [
+  {
+    key: "peng",
+    md: `
+    666666666666            
+    `,
+    sinppet:
+      "import React,{useState,useEffect,useMemo,useCallback} from 'react' ",
+  },
+  {
+    key: "chao",
+    md: `
+    666666666666            
+    `,
+    sinppet: "import less from './index.less'",
+  },
+  {
+    key: "pengwudi",
+    md: `
+    # peng
+    ## chao
+    ### pengchao
+    `,
+    sinppet: `import less from './index.less
+      asdf
+      asdf
+      asdf
+      asdfasdf
+    `,
+  },
+];
+let result = arr.map((item) => {
+  var completion = new vscode.CompletionItem(
+    item.key,
+    vscode.CompletionItemKind.Snippet
+  );
+  completion.insertText = new vscode.SnippetString(item.sinppet);
+  completion.documentation = new vscode.MarkdownString(item.md);
+  return { completion, key: item.key };
+});
 /**
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+  console.log(
+    'Congratulations, your extension "your-extension-name" is now active!'
+  );
+
   // code sinppets
   const provider = vscode.languages.registerCompletionItemProvider(
     { scheme: "file", language: "*" },
@@ -122,28 +178,19 @@ function activate(context) {
           .text.substr(0, position.character);
         // 添加日志输出
         console.log(`Line prefix: "${linePrefix}"`); // 添加日志输出
-        // 读取文件
-        const srcPath = path.join(workspaceFolder, "md");
-        // 调用递归遍历函数并读取文件
-        // const results = traverseFolder(srcPath);
-
-        // if (!linePrefix.endsWith("peng")) {
-        //   console.log('Line does not end with "peng"');
-        //   return undefined;
-        // }
-        // Create completion item
-        const completion = new vscode.CompletionItem(
-          "peng",
-          vscode.CompletionItemKind.Snippet
-        );
-        completion.insertText = new vscode.SnippetString(
-          "Your code snippet here"
-        );
-        completion.documentation = new vscode.MarkdownString(
-          'This will insert a code snippet when you type "peng"'
-        );
-
-        return [completion];
+        return result
+          .map((item) => {
+            console.log(item);
+            if (linePrefix.startsWith(item.key)) {
+              console.log(`Line does not end with "${item.key}"`);
+              console.log(linePrefix);
+              return undefined;
+            } else {
+              console.log("得到数据");
+              return item.completion;
+            }
+          })
+          .filter(Boolean);
       },
     }
   );
@@ -325,10 +372,28 @@ function activate(context) {
         });
     }
   );
+  const disposableTranslate = vscode.commands.registerCommand(
+    "extension.replaceJsx",
+    async () => {
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        const document = editor.document;
+        const selection = editor.selection;
+        const selectedText = document.getText(selection);
+
+        const transformedText = transformJsx(selectedText);
+
+        editor.edit((editBuilder) => {
+          editBuilder.replace(selection, transformedText);
+        });
+      }
+    }
+  );
   context.subscriptions.push(provider);
   context.subscriptions.push(disposable);
   context.subscriptions.push(disposableUmi);
   context.subscriptions.push(disposablevscode);
+  context.subscriptions.push(disposableTranslate);
 }
 
 function deactivate() {
