@@ -2,7 +2,7 @@
   "name": "tarocodepeng",
   "displayName": "taroCodePeng",
   "description": "nosay",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -10,6 +10,10 @@
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1009867202/tarocodepeng.git"
+  },
   "main": "./extension.js",
   "activationEvents": [],
   "contributes": {
