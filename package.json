@@ -2,7 +2,7 @@
   "name": "tarocodepeng",
   "displayName": "taroCodePeng",
   "description": "nosay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -11,6 +11,7 @@
     "Other"
   ],
   "main": "./extension.js",
+  "activationEvents": [],
   "contributes": {
     "commands": [
       {
