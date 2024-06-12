@@ -1,4 +1,3 @@
-
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
@@ -120,51 +119,22 @@ let rootPath = getWorkspaceFolder();
 
 let arr = [
   {
-    key: "peng",
-    md: `
-    666666666666            
-    `,
-    sinppet:
-      "import React,{useState,useEffect,useMemo,useCallback} from 'react' ",
-  },
-  {
-    key: "chao",
-    md: `
-    666666666666            
-    `,
-    sinppet: "import less from './index.less'",
-  },
-  {
-    key: "pengwudi",
-    md: `
-    # peng
-    ## chao
-    ### pengchao
-    `,
-    sinppet: `import less from './index.less
-      asdf
-      asdf
-      asdf
-      asdfasdf
-    `,
-  },
-  {
     key: "reacthead",
     md: `
     # reacthead
     build react componend head
     `,
     sinppet: `
-    import React, {
-      useState,
-      useEffect,
-      useMemo,
-      useContext,
-      useCallback,
-    } from 'react';
-    import less from './index.less';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useContext,
+  useCallback,
+} from 'react';
+import less from './index.less';
     `,
-  }
+  },
 ];
 let result = arr.map((item) => {
   var completion = new vscode.CompletionItem(
@@ -401,7 +371,7 @@ function activate(context) {
         console.log("pengchao");
         const document = editor.document;
         const selection = editor.selection;
-        console.log(document)
+        console.log(document);
         console.log(selection);
         const selectedText = document.getText(selection);
         console.log(selectedText);
@@ -411,7 +381,7 @@ function activate(context) {
           editBuilder.replace(selection, transformedText);
         });
       } else {
-        console.log("fail")
+        console.log("fail");
       }
     }
   );
