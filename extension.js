@@ -148,6 +148,23 @@ let arr = [
       asdfasdf
     `,
   },
+  {
+    key: "reacthead",
+    md: `
+    # reacthead
+    build react componend head
+    `,
+    sinppet: `
+    import React, {
+      useState,
+      useEffect,
+      useMemo,
+      useContext,
+      useCallback,
+    } from 'react';
+    import less from './index.less';
+    `,
+  }
 ];
 let result = arr.map((item) => {
   var completion = new vscode.CompletionItem(
