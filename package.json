@@ -39,6 +39,13 @@
         "title": "Replace JSX ClassNames"
       }
     ],
+    "keybindings": [
+      {
+        "command": "extension.replaceJsx",
+        "key": "cmd+n",
+        "when": "editorLangId == 'javascript' || editorLangId == 'typescript' || editorLangId == 'javascriptreact' || editorLangId == 'typescriptreact'"
+      }
+    ],
     "languages": [
       {
         "id": "plaintext",

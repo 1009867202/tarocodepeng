@@ -1,3 +1,4 @@
+
 const vscode = require("vscode");
 const fs = require("fs");
 const path = require("path");
@@ -372,20 +373,28 @@ function activate(context) {
         });
     }
   );
+  // classNames 转换
   const disposableTranslate = vscode.commands.registerCommand(
     "extension.replaceJsx",
     async () => {
+      console.log("执行了");
       const editor = vscode.window.activeTextEditor;
+      console.log(editor);
       if (editor) {
+        console.log("pengchao");
         const document = editor.document;
         const selection = editor.selection;
+        console.log(document)
+        console.log(selection);
         const selectedText = document.getText(selection);
-
+        console.log(selectedText);
         const transformedText = transformJsx(selectedText);
 
         editor.edit((editBuilder) => {
           editBuilder.replace(selection, transformedText);
         });
+      } else {
+        console.log("fail")
       }
     }
   );
