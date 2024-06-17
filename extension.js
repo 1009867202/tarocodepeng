@@ -135,6 +135,32 @@ import React, {
 import less from './index.less';
     `,
   },
+  {
+    key: "reactless",
+    md: `
+    # reacthead
+    build react componend head
+    `,
+    sinppet: `
+import less from './index.less';
+    `,
+  },
+  {
+    key: "reactstart",
+    md: `
+    # reacthead
+    build react componend head
+    `,
+    sinppet: `
+    import React, {
+      useState,
+      useEffect,
+      useMemo,
+      useContext,
+      useCallback,
+    } from 'react';
+    `,
+  },
 ];
 let result = arr.map((item) => {
   var completion = new vscode.CompletionItem(
