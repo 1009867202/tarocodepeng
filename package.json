@@ -2,7 +2,7 @@
   "name": "tarocodepeng",
   "displayName": "taroCodePeng",
   "description": "nosay",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -31,8 +31,8 @@
         "title": "create umi tempalte"
       },
       {
-        "command": "extension.createFolderFromTemplatevscode",
-        "title": "create vsocde tempalte"
+        "command": "extension.createFolderFromTemplatenext",
+        "title": "create next tempalte"
       },
       {
         "command": "extension.replaceJsx",

@@ -347,6 +347,39 @@ function activate(context) {
         });
     }
   );
+  const disposableNext = vscode.commands.registerCommand(
+    "extension.createFolderFromTemplateumi",
+    (uri) => {
+      const srcPath = path.join(rootPath, "src/pages");
+
+      vscode.window
+        .showInputBox({ prompt: "Enter the name of the new folder" })
+        .then((folderName) => {
+          if (!folderName) {
+            vscode.window.showErrorMessage("Folder name cannot be empty");
+            return;
+          }
+
+          const newFolderPath = path.join(uri.fsPath, folderName);
+          if (fs.existsSync(newFolderPath)) {
+            vscode.window.showErrorMessage(
+              `Folder already exists: ${newFolderPath}`
+            );
+            return;
+          }
+
+          const templatePath = path.join(
+            context.extensionPath,
+            "template",
+            "next"
+          );
+          copyFolderSync(templatePath, newFolderPath);
+          vscode.window.showInformationMessage(
+            `Folder created from next template : ${newFolderPath}`
+          );
+        });
+    }
+  );
   // 注册一个命令，该命令会在文件夹上右键时触发
   const disposablevscode = vscode.commands.registerCommand(
     "extension.createFolderFromTemplatevscode",
@@ -414,6 +447,7 @@ function activate(context) {
   context.subscriptions.push(provider);
   context.subscriptions.push(disposable);
   context.subscriptions.push(disposableUmi);
+  context.subscriptions.push(disposableNext);
   context.subscriptions.push(disposablevscode);
   context.subscriptions.push(disposableTranslate);
 }
