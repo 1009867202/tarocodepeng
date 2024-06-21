@@ -86,7 +86,7 @@
           "group": "navigation"
         },
         {
-          "command": "extension.createFolderFromTemplatevscode",
+          "command": "extension.createFolderFromTemplatenext",
           "when": "explorerResourceIsFolder",
           "group": "navigation"
         }

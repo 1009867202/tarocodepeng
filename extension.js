@@ -347,8 +347,9 @@ function activate(context) {
         });
     }
   );
+  // 注册一个命令，该命令会在文件夹上右键时触发
   const disposableNext = vscode.commands.registerCommand(
-    "extension.createFolderFromTemplateumi",
+    "extension.createFolderFromTemplatenext",
     (uri) => {
       const srcPath = path.join(rootPath, "src/pages");
 
