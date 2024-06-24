@@ -2,7 +2,7 @@
   "name": "tarocodepeng",
   "displayName": "taroCodePeng",
   "description": "nosay",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "engines": {
     "vscode": "^1.89.0"
   },
