@@ -1,8 +1,8 @@
 {
   "name": "tarocodepeng",
-  "displayName": "taroCodePeng",
+  "displayName": "CodePengassit",
   "description": "nosay",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "engines": {
     "vscode": "^1.89.0"
   },

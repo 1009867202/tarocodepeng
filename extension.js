@@ -109,7 +109,7 @@ function transformJsx(text) {
   return text.replace(/className="([^"]+)"/g, (match, p1) => {
     const classNames = p1
       .split(" ")
-      .map((className) => `\${less.${className}}`)
+      .map((className) => `\${less["${className}"]}`)
       .join(" ");
     return `className={\`${classNames}\`}`;
   });
@@ -441,10 +441,7 @@ function activate(context) {
         console.log("pengchao");
         const document = editor.document;
         const selection = editor.selection;
-        console.log(document);
-        console.log(selection);
         const selectedText = document.getText(selection);
-        console.log(selectedText);
         const transformedText = transformJsx(selectedText);
 
         editor.edit((editBuilder) => {
