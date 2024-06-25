@@ -136,29 +136,39 @@ import less from './index.less';
     `,
   },
   {
-    key: "reactless",
+    key: "reactrequest",
     md: `
     # reacthead
     build react componend head
     `,
     sinppet: `
-import less from './index.less';
+    let [data, setData] = useState({});
+    useEffect(() => {
+      async function handler() {
+        let modules: CMS.CommonModuleData[] = [
+          {
+            postType: 'procedure-guide',
+            taxonomy: 'management',
+            page: 0,
+            number: 0,
+            termSlug: 'management',
+          },
+        ];
+        let { data } = await postModuleData({ modules });
+        setData(data["procedure-guide"].items);
+      }
+      handler();
+    }, []);
     `,
   },
   {
-    key: "reactstart",
+    key: "postData",
     md: `
     # reacthead
     build react componend head
     `,
     sinppet: `
-    import React, {
-      useState,
-      useEffect,
-      useMemo,
-      useContext,
-      useCallback,
-    } from 'react';
+import { postModuleData } from '@/services/cms/commonService';
     `,
   },
 ];
