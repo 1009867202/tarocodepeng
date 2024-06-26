@@ -106,7 +106,7 @@ function traverseFolder(folderPath) {
 
 function transformJsx(text) {
   // 简单的示例替换逻辑，可以根据需要扩展
-  return text.replace(/className="([^"]+)"/g, (match, p1) => {
+  return text.replace(/className=(["'])([^"']+)\1/g, (match, quote, p1) => {
     const classNames = p1
       .split(" ")
       .map((className) => `\${less["${className}"]}`)
