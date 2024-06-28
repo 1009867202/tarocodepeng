@@ -109,7 +109,7 @@ function transformJsx(text) {
   return text.replace(/className=(["'])([^"']+)\1/g, (match, quote, p1) => {
     const classNames = p1
       .split(" ")
-      .map((className) => `\${less["${className}"]}`)
+      .map((className) => className != 'container'? `\${less["${className}"]}`:" container ")
       .join(" ");
     return `className={\`${classNames}\`}`;
   });
