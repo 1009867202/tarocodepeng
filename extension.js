@@ -142,12 +142,13 @@ import less from './index.less';
     build react componend head
     `,
     sinppet: `
-    let [data, setData] = useState({});
+    let [data, setData] = useState([] as any[]);
     useEffect(() => {
+      let postType = ''
       async function handler() {
         let modules: CMS.CommonModuleData[] = [
           {
-            postType: 'procedure-guide',
+            postType,
             taxonomy: 'management',
             page: 0,
             number: 0,
@@ -155,7 +156,7 @@ import less from './index.less';
           },
         ];
         let { data } = await postModuleData({ modules });
-        setData(data["procedure-guide"].items);
+        setData(data[postType].items);
       }
       handler();
     }, []);
