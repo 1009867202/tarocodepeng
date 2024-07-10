@@ -125,14 +125,13 @@ let arr = [
     build react componend head
     `,
     sinppet: `
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useContext,
-  useCallback,
-} from 'react';
-import less from './index.less';
+    import React, {
+      useState,
+      useEffect,
+      useMemo,
+      useCallback,
+    } from 'react';
+    import less from './index.less';
     `,
   },
   {
@@ -435,11 +434,8 @@ function activate(context) {
   const disposableTranslate = vscode.commands.registerCommand(
     "extension.replaceJsx",
     async () => {
-      console.log("执行了");
       const editor = vscode.window.activeTextEditor;
-      console.log(editor);
       if (editor) {
-        console.log("pengchao");
         const document = editor.document;
         const selection = editor.selection;
         const selectedText = document.getText(selection);
