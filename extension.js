@@ -48,7 +48,6 @@ function addPageEntryToConfig(configContent, newPageEntry) {
     );
   }
 }
-
 // 获取第一个工作区文件夹的路径
 function getWorkspaceFolder() {
   if (
@@ -61,7 +60,6 @@ function getWorkspaceFolder() {
     return null;
   }
 }
-
 // code Sinppets item
 function getSinppetsItem(linePrefix, key, sinppet, md) {
   let codeSinppets = "code";
@@ -80,7 +78,6 @@ function getSinppetsItem(linePrefix, key, sinppet, md) {
     return completion;
   };
 }
-
 // 递归遍历文件夹并读取指定文件
 function traverseFolder(folderPath) {
   const results = [];
@@ -103,18 +100,18 @@ function traverseFolder(folderPath) {
   traverse(folderPath);
   return results;
 }
-
 function transformJsx(text) {
   // 简单的示例替换逻辑，可以根据需要扩展
   return text.replace(/className=(["'])([^"']+)\1/g, (match, quote, p1) => {
     const classNames = p1
       .split(" ")
-      .map((className) => className != 'container'? `\${less["${className}"]}`:" container ")
+      .map((className) =>
+        className != "container" ? `\${less["${className}"]}` : " container "
+      )
       .join(" ");
     return `className={\`${classNames}\`}`;
   });
 }
-
 let rootPath = getWorkspaceFolder();
 
 let arr = [
@@ -162,13 +159,37 @@ let arr = [
     `,
   },
   {
-    key: "postData",
+    key: "networkhead",
     md: `
     # reacthead
     build react componend head
     `,
     sinppet: `
-import { postModuleData } from '@/services/cms/commonService';
+    let postType = 'agreement';
+    let params = {
+      postType,
+      number: 10,
+      page: 1,
+      showTree: true,
+    };
+    async function getModuleData() {
+      return await await postModuleData({ modules: [params] });
+    }
+    async function getTermsData() {
+      return await getTerms({
+        taxonomy: \`${postType}-category\`,
+      });
+    }
+    `,
+  },
+  {
+    key: "networkbody",
+    md: `
+    let postModuleData = useRequest(getModuleData);
+    let getTerms = useRequest(getTermsData);
+    let items = useTermsAndList(getTerms?.data, postModuleData?.data?.[postType]?.items, {
+      termsKey: "listData"
+    })
     `,
   },
 ];
