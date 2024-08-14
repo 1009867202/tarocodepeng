@@ -177,7 +177,7 @@ let arr = [
     }
     async function getTermsData() {
       return await getTerms({
-        taxonomy: \`${postType}-category\`,
+        taxonomy: \${postType}-category\`,
       });
     }
     `,
