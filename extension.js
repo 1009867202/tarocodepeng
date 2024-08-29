@@ -115,83 +115,83 @@ function transformJsx(text) {
 let rootPath = getWorkspaceFolder();
 
 let arr = [
-  {
-    key: "reacthead",
-    md: `
-    # reacthead
-    build react componend head
-    `,
-    sinppet: `
-    import React, {
-      useState,
-      useEffect,
-      useMemo,
-      useCallback,
-    } from 'react';
-    import less from './index.less';
-    `,
-  },
-  {
-    key: "reactrequest",
-    md: `
-    # reacthead
-    build react componend head
-    `,
-    sinppet: `
-    let [data, setData] = useState([] as any[]);
-    useEffect(() => {
-      let postType = ''
-      async function handler() {
-        let modules: CMS.CommonModuleData[] = [
-          {
-            postType,
-            taxonomy: 'management',
-            page: 0,
-            number: 0,
-            termSlug: 'management',
-          },
-        ];
-        let { data } = await postModuleData({ modules });
-        setData(data[postType].items);
-      }
-      handler();
-    }, []);
-    `,
-  },
-  {
-    key: "networkhead",
-    md: `
-    # reacthead
-    build react componend head
-    `,
-    sinppet: `
-    let postType = 'agreement';
-    let params = {
-      postType,
-      number: 10,
-      page: 1,
-      showTree: true,
-    };
-    async function getModuleData() {
-      return await await postModuleData({ modules: [params] });
-    }
-    async function getTermsData() {
-      return await getTerms({
-        taxonomy: \${postType}-category\`,
-      });
-    }
-    `,
-  },
-  {
-    key: "networkbody",
-    md: `
-    let postModuleData = useRequest(getModuleData);
-    let getTerms = useRequest(getTermsData);
-    let items = useTermsAndList(getTerms?.data, postModuleData?.data?.[postType]?.items, {
-      termsKey: "listData"
-    })
-    `,
-  },
+  // {
+  //   key: "reacthead",
+  //   md: `
+  //   # reacthead
+  //   build react componend head
+  //   `,
+  //   sinppet: `
+  //   import React, {
+  //     useState,
+  //     useEffect,
+  //     useMemo,
+  //     useCallback,
+  //   } from 'react';
+  //   import less from './index.less';
+  //   `,
+  // },
+  // {
+  //   key: "reactrequest",
+  //   md: `
+  //   # reacthead
+  //   build react componend head
+  //   `,
+  //   sinppet: `
+  //   let [data, setData] = useState([] as any[]);
+  //   useEffect(() => {
+  //     let postType = ''
+  //     async function handler() {
+  //       let modules: CMS.CommonModuleData[] = [
+  //         {
+  //           postType,
+  //           taxonomy: 'management',
+  //           page: 0,
+  //           number: 0,
+  //           termSlug: 'management',
+  //         },
+  //       ];
+  //       let { data } = await postModuleData({ modules });
+  //       setData(data[postType].items);
+  //     }
+  //     handler();
+  //   }, []);
+  //   `,
+  // },
+  // {
+  //   key: "networkhead",
+  //   md: `
+  //   # reacthead
+  //   build react componend head
+  //   `,
+  //   sinppet: `
+  //   let postType = 'agreement';
+  //   let params = {
+  //     postType,
+  //     number: 10,
+  //     page: 1,
+  //     showTree: true,
+  //   };
+  //   async function getModuleData() {
+  //     return await await postModuleData({ modules: [params] });
+  //   }
+  //   async function getTermsData() {
+  //     return await getTerms({
+  //       taxonomy: \${postType}-category\`,
+  //     });
+  //   }
+  //   `,
+  // },
+  // {
+  //   key: "networkbody",
+  //   md: `
+  //   let postModuleData = useRequest(getModuleData);
+  //   let getTerms = useRequest(getTermsData);
+  //   let items = useTermsAndList(getTerms?.data, postModuleData?.data?.[postType]?.items, {
+  //     termsKey: "listData"
+  //   })
+  //   `,
+  // },
 ];
 let result = arr.map((item) => {
   var completion = new vscode.CompletionItem(
